@@ -18,6 +18,25 @@
 
     const currentUser = JSON.parse(localStorage.getItem("conductoverseCurrentUser") || "null");
 
+    // Auto-migrate guest scores to student profile if logged in
+    if (currentUser && currentUser.role === "student" && currentUser.username) {
+        try {
+            const guestQuiz = localStorage.getItem("conductoverseQuizResult");
+            const userQuizKey = `conductoverseQuizResult_${currentUser.username}`;
+            if (guestQuiz && !localStorage.getItem(userQuizKey)) {
+                localStorage.setItem(userQuizKey, guestQuiz);
+            }
+
+            const guestSpot = localStorage.getItem("conductoverseSpotResult");
+            const userSpotKey = `conductoverseSpotResult_${currentUser.username}`;
+            if (guestSpot && !localStorage.getItem(userSpotKey)) {
+                localStorage.setItem(userSpotKey, guestSpot);
+            }
+        } catch (e) {
+            console.error("Error migrating guest scores:", e);
+        }
+    }
+
     // 2. Access Protection Guard: Only login.html and register.html are accessible when logged out
     if (!currentUser && page !== "login.html" && page !== "register.html") {
         window.location.href = "login.html";
@@ -40,6 +59,17 @@
     if (currentUser) {
         const isTeacherPage = page.startsWith("teacher-") || page === "teacher.html";
         const isAdminPage = page.startsWith("admin-") || page === "admin.html";
+
+        if (page === "student-assignments.html" && currentUser.role !== "student") {
+            if (currentUser.role === "teacher") {
+                window.location.href = "teacher-overview.html";
+            } else if (currentUser.role === "admin") {
+                window.location.href = "admin-overview.html";
+            } else {
+                window.location.href = "index.html";
+            }
+            return;
+        }
 
         if (isTeacherPage && currentUser.role !== "teacher" && currentUser.role !== "admin") {
             window.location.href = "profile.html";
@@ -86,6 +116,7 @@
                         { name: "Assignments", url: "teacher-assignments.html" },
                         { name: "Quizzes", url: "teacher-quizzes.html" },
                         { name: "Analytics", url: "teacher-analytics.html" },
+                        { name: "Certificates", url: "teacher-certificates.html" },
                         { name: "Announcements", url: "teacher-announcements.html" },
                         { name: "Reports", url: "teacher-reports.html" },
                         { name: "Settings", url: "teacher-settings.html" }
@@ -118,6 +149,8 @@
                         { name: "Overview", url: "admin-overview.html" },
                         { name: "User Directory", url: "admin-users.html" },
                         { name: "Announcements", url: "admin-announcements.html" },
+                        { name: "Manage Quizzes", url: "admin-quizzes.html" },
+                        { name: "Manage Assignments", url: "admin-assignments.html" },
                         { name: "System Reports", url: "admin-reports.html" },
                         { name: "Configurations", url: "admin-settings.html" }
                     ];

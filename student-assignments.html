@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Assignments | ConductoVerse</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/auth.css">
+<style>
+/* Glassmorphic Styles */
+.assignment-card {
+    background: rgba(255, 255, 255, 0.55) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.45) !important;
+    border-radius: var(--radius);
+    padding: 30px;
+    box-shadow: var(--glass-glow), var(--shadow);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.assignment-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+}
+
+.assignment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.assignment-meta {
+    display: flex;
+    gap: 16px;
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-weight: 700;
+}
+
+.assignment-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.status-badge {
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border: 1px solid transparent;
+}
+
+.status-badge.pending {
+    background: rgba(251, 133, 0, 0.08);
+    color: var(--orange);
+    border-color: rgba(251, 133, 0, 0.2);
+}
+
+.status-badge.graded {
+    background: rgba(42, 157, 143, 0.08);
+    color: var(--green);
+    border-color: rgba(42, 157, 143, 0.2);
+}
+
+.status-badge.unsubmitted {
+    background: rgba(231, 111, 81, 0.08);
+    color: var(--red);
+    border-color: rgba(231, 111, 81, 0.2);
+}
+
+.feedback-box {
+    background: rgba(22, 104, 255, 0.04);
+    border-left: 4px solid var(--blue);
+    padding: 16px;
+    border-radius: 12px;
+    margin-top: 8px;
+}
+
+.feedback-box p {
+    font-size: 0.88rem;
+    font-style: italic;
+    color: var(--ink);
+    font-weight: 600;
+}
+
+.submission-content-preview {
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px dashed var(--border);
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin-top: 6px;
+}
+
+/* Modal adjustments */
+.modal-overlay {
+    backdrop-filter: blur(12px) !important;
+    background: rgba(13, 27, 42, 0.25) !important;
+    z-index: 2000 !important;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    inset: 0;
+    transition: var(--transition);
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(25px) !important;
+    -webkit-backdrop-filter: blur(25px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    border-radius: var(--radius) !important;
+    box-shadow: 0 32px 80px rgba(13, 34, 56, 0.18), inset 0 1px 1px white !important;
+    padding: 36px !important;
+    max-height: 90vh;
+    overflow-y: auto;
+    width: min(100%, 600px);
+    position: relative;
+    animation: modalSpring 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+}
+
+.auth-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.auth-label {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--blue-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 12px 16px !important;
+    font-size: 0.92rem !important;
+    font-weight: 600 !important;
+    color: var(--ink) !important;
+    background: rgba(255, 255, 255, 0.5) !important;
+    border: 1px solid rgba(215, 232, 246, 0.8) !important;
+    border-radius: 12px !important;
+    transition: var(--transition) !important;
+}
+
+.auth-input:focus {
+    background: white !important;
+    border-color: var(--blue) !important;
+    box-shadow: 0 0 0 4px rgba(22, 104, 255, 0.12) !important;
+    outline: none;
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="index.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse
+    </a>
+
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="learn.html">Learn</a></li>
+        <li><a href="bulb.html">Bulb Test</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="uses.html">Uses</a></li>
+        <li><a href="lab.html">Virtual Lab</a></li>
+        <li><a href="results.html">Results</a></li>
+        <li><a class="active" href="student-assignments.html">Assignments</a></li>
+    </ul>
+</nav>
+
+<main>
+    <section class="page-intro">
+        <div class="eyebrow">Classroom Pathway</div>
+        <h1>Your Learning Assignments</h1>
+        <p>Complete homework tasks assigned by your instructor, submit your solutions, and review grading feedback.</p>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section class="container" style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
+        <div id="assignments-list" style="display: flex; flex-direction: column; gap: 24px; width: 100%;">
+            <!-- Assignments injected dynamically -->
+        </div>
+    </section>
+</main>
+
+<!-- Submit Assignment Modal -->
+<div class="modal-overlay" id="submitModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeSubmitModal()" aria-label="Close modal">&times;</button>
+        <h2 id="modalTitle" style="font-family:'Outfit', sans-serif; font-weight:800; color:var(--blue-dark); margin-bottom: 8px;">Submit Assignment</h2>
+        <p id="modalSubtitle" style="font-size:0.86rem; color:var(--muted); font-weight:600; margin-bottom: 24px;">Please write your solution or content answers below.</p>
+        
+        <form id="submission-form" onsubmit="handleSubmissionSubmit(event)" style="display: flex; flex-direction: column; gap: 20px;">
+            <input type="hidden" id="submit-assignment-id">
+            
+            <div class="auth-form-group">
+                <label class="auth-label">Assignment Title</label>
+                <input type="text" id="submit-assign-title" class="auth-input" readonly disabled>
+            </div>
+            
+            <div class="auth-form-group">
+                <label for="submit-content" class="auth-label">Your Solution Answers</label>
+                <textarea id="submit-content" class="auth-input" style="min-height: 150px; padding-top: 12px; resize: vertical;" required placeholder="Write your submission details here..."></textarea>
+            </div>
+
+            <button type="submit" class="btn" style="min-height: 46px; background: linear-gradient(135deg, var(--blue), var(--cyan)); color: white; font-weight: 800; border: none; box-shadow: 0 8px 20px rgba(22, 104, 255, 0.25);">Submit Answers to Instructor ⚡</button>
+        </form>
+    </div>
+</div>
+
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
+
+<script src="js/bg-simulation.js"></script>
+<script src="js/auth.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    // Session Guard
+    const currentUser = window.ConductoVerseAuth.getCurrentUser();
+    if (!currentUser || currentUser.role !== "student") {
+        window.location.href = "login.html";
+        return;
+    }
+    renderStudentAssignments();
+});
+
+function renderStudentAssignments() {
+    const currentUser = window.ConductoVerseAuth.getCurrentUser();
+    const container = document.getElementById("assignments-list");
+    
+    const assignments = JSON.parse(localStorage.getItem("conductoverseAssignments") || "[]");
+    const submissions = JSON.parse(localStorage.getItem("conductoverseSubmissions") || "[]");
+    
+    if (assignments.length === 0) {
+        container.innerHTML = `
+            <div style="text-align: center; padding: 60px 20px; background: rgba(255,255,255,0.45); border-radius: var(--radius); border: 1.5px dashed var(--border); backdrop-filter: blur(10px);">
+                <span style="font-size: 3rem; display: block; margin-bottom: 16px;">🎉</span>
+                <h2 style="font-family:'Outfit', sans-serif; font-weight: 800; color: var(--blue-dark); margin-bottom: 8px;">All Homework Completed!</h2>
+                <p style="color: var(--muted); font-size: 0.95rem; font-weight: 600;">No assignments have been assigned by your instructor yet.</p>
+            </div>
+        `;
+        return;
+    }
+
+    let html = "";
+    assignments.forEach(assign => {
+        const sub = submissions.find(s => s.assignmentId === assign.id && s.student === currentUser.username);
+        const formattedDate = new Date(assign.due).toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' });
+        
+        let statusHtml = "";
+        let actionHtml = "";
+        let feedbackHtml = "";
+        let submissionPreview = "";
+
+        if (!sub) {
+            statusHtml = `<span class="status-badge unsubmitted">Not Submitted</span>`;
+            actionHtml = `<button onclick="openSubmitModal('${assign.id}', '${assign.title.replace(/'/g, "\\'")}')" class="btn" style="min-height:38px; font-size:0.85rem; padding: 6px 16px; margin-top: 10px; align-self: flex-start;">Submit Work ⚡</button>`;
+        } else if (sub.status === "Pending") {
+            statusHtml = `<span class="status-badge pending">Awaiting Review</span>`;
+            submissionPreview = `
+                <div style="margin-top: 8px;">
+                    <span class="auth-label" style="font-size: 0.7rem;">Your Submission:</span>
+                    <div class="submission-content-preview">"${sub.content}"</div>
+                </div>
+            `;
+            actionHtml = `<span style="font-size:0.82rem; color:var(--muted); font-weight:700; margin-top:8px;">Submitted on ${new Date(sub.submittedAt).toLocaleDateString()}</span>`;
+        } else if (sub.status === "Evaluated") {
+            statusHtml = `<span class="status-badge graded">Graded: ${sub.score} / ${assign.maxScore}</span>`;
+            submissionPreview = `
+                <div style="margin-top: 8px;">
+                    <span class="auth-label" style="font-size: 0.7rem;">Your Submission:</span>
+                    <div class="submission-content-preview">"${sub.content}"</div>
+                </div>
+            `;
+            feedbackHtml = `
+                <div class="feedback-box">
+                    <span class="auth-label" style="font-size: 0.7rem; color: var(--blue); margin-bottom: 4px; display: block;">Instructor Comments:</span>
+                    <p>"${sub.feedback}"</p>
+                </div>
+            `;
+        }
+
+        html += `
+            <article class="assignment-card">
+                <div class="assignment-header">
+                    <h2 style="font-family:'Outfit', sans-serif; font-weight:800; color:var(--blue-dark); margin:0;">${assign.title}</h2>
+                    ${statusHtml}
+                </div>
+                
+                <p style="font-size: 0.95rem; font-weight: 550; color: var(--ink); margin: 0; line-height: 1.5;">${assign.desc}</p>
+                
+                <div class="assignment-meta">
+                    <span>📅 Due Date: ${formattedDate}</span>
+                    <span>💯 Max Points: ${assign.maxScore} pts</span>
+                </div>
+                
+                ${submissionPreview}
+                ${feedbackHtml}
+                ${actionHtml}
+            </article>
+        `;
+    });
+
+    container.innerHTML = html;
+}
+
+function openSubmitModal(id, title) {
+    document.getElementById("submit-assignment-id").value = id;
+    document.getElementById("submit-assign-title").value = title;
+    document.getElementById("submit-content").value = "";
+    document.getElementById("submitModal").style.display = "flex";
+}
+
+function closeSubmitModal() {
+    document.getElementById("submitModal").style.display = "none";
+}
+
+function handleSubmissionSubmit(e) {
+    e.preventDefault();
+    const currentUser = window.ConductoVerseAuth.getCurrentUser();
+    const assignId = document.getElementById("submit-assignment-id").value;
+    const content = document.getElementById("submit-content").value.trim();
+    
+    const newSubmission = {
+        id: "sub_" + Date.now(),
+        assignmentId: assignId,
+        student: currentUser.username,
+        content: content,
+        submittedAt: new Date().toISOString(),
+        status: "Pending",
+        score: null,
+        feedback: null
+    };
+
+    const currentSubs = JSON.parse(localStorage.getItem("conductoverseSubmissions") || "[]");
+    currentSubs.push(newSubmission);
+    localStorage.setItem("conductoverseSubmissions", JSON.stringify(currentSubs));
+
+    alert("Your answers have been successfully submitted to your instructor!");
+    closeSubmitModal();
+    renderStudentAssignments();
+}
+</script>
+</body>
+</html>

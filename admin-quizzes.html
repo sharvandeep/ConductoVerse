@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teacher Portal - Quizzes | ConductoVerse</title>
+<title>Admin Dashboard - Quiz Manager | ConductoVerse</title>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/auth.css">
+<link rel="stylesheet" href="css/admin.css">
 <style>
 /* Glassmorphic Dashboard Card & Stats Override */
 .dashboard-card {
@@ -51,29 +52,29 @@
     margin-top: 15px;
 }
 
-.dashboard-table th {
+.admin-table th {
     background: rgba(22, 104, 255, 0.04) !important;
     padding: 16px 20px;
     font-weight: 850;
     color: var(--blue-dark);
 }
 
-.dashboard-table td {
+.admin-table td {
     padding: 16px 20px;
     border-bottom: 1px solid rgba(215, 232, 246, 0.4) !important;
     vertical-align: middle;
 }
 
-.dashboard-table td:first-child,
-.dashboard-table td:nth-child(3),
-.dashboard-table td:last-child,
-.dashboard-table th:first-child,
-.dashboard-table th:nth-child(3),
-.dashboard-table th:last-child {
+.admin-table td:first-child,
+.admin-table td:nth-child(3),
+.admin-table td:last-child,
+.admin-table th:first-child,
+.admin-table th:nth-child(3),
+.admin-table th:last-child {
     white-space: nowrap;
 }
 
-.dashboard-table tr:hover td {
+.admin-table tr:hover td {
     background: rgba(22, 104, 255, 0.02) !important;
 }
 
@@ -109,19 +110,14 @@
 }
 
 /* Glassmorphic Modal overlay & card */
-.modal-overlay {
+.admin-modal {
     backdrop-filter: blur(12px) !important;
     background: rgba(13, 27, 42, 0.25) !important;
     z-index: 2000 !important;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    inset: 0;
     transition: var(--transition);
 }
 
-.modal-content {
+.admin-modal-card {
     background: rgba(255, 255, 255, 0.85) !important;
     backdrop-filter: blur(25px) !important;
     -webkit-backdrop-filter: blur(25px) !important;
@@ -136,22 +132,23 @@
 }
 
 /* Form Styles */
-.auth-form-group {
+.admin-field-group {
     display: flex;
     flex-direction: column;
     gap: 6px;
     margin-bottom: 0 !important;
 }
 
-.auth-label {
+.admin-field-group label {
     font-size: 0.8rem;
     font-weight: 800;
     color: var(--blue-dark);
     text-transform: uppercase;
     letter-spacing: 0.04em;
+    margin-bottom: 0 !important;
 }
 
-.auth-input {
+.admin-input, .admin-select {
     width: 100%;
     padding: 10px 16px !important;
     font-size: 0.92rem !important;
@@ -163,7 +160,7 @@
     transition: var(--transition) !important;
 }
 
-.auth-input:focus {
+.admin-input:focus, .admin-select:focus {
     background: white !important;
     border-color: var(--blue) !important;
     box-shadow: 0 0 0 4px rgba(22, 104, 255, 0.12) !important;
@@ -225,12 +222,12 @@
 }
 </style>
 </head>
-<body>
+<body class="admin-body">
 
 <nav class="navbar" aria-label="Main navigation">
-    <a class="logo" href="teacher-overview.html">
+    <a class="logo" href="admin-overview.html">
         <span class="logo-mark">⚡</span>
-        ConductoVerse Teacher
+        ConductoVerse Admin
     </a>
     <ul class="nav-links">
         <!-- Injected dynamically by js/auth.js -->
@@ -241,24 +238,22 @@
     <!-- Sidebar navigation -->
     <aside class="dashboard-sidebar">
         <article class="profile-card">
-            <div id="teacherAvatar" class="profile-avatar teacher">🔋</div>
-            <h2 id="teacherUsername">Teacher Name</h2>
-            <span class="profile-role-badge teacher">Instructor</span>
+            <div id="adminAvatar" class="profile-avatar admin">⚡</div>
+            <h2 id="adminUsername">System Admin</h2>
+            <span class="profile-role-badge admin">Super Administrator</span>
             
             <ul class="sidebar-menu">
-                <li><a href="teacher-overview.html" class="menu-btn"><span class="icon">📊</span> Overview</a></li>
-                <li><a href="teacher-students.html" class="menu-btn"><span class="icon">👥</span> Students</a></li>
-                <li><a href="teacher-assignments.html" class="menu-btn"><span class="icon">📝</span> Assignments</a></li>
-                <li><a href="teacher-quizzes.html" class="menu-btn"><span class="icon">🧠</span> Quizzes</a></li>
-                <li><a href="teacher-analytics.html" class="menu-btn"><span class="icon">📈</span> Analytics</a></li>
-                <li><a href="teacher-certificates.html" class="menu-btn"><span class="icon">🏆</span> Certificates</a></li>
-                <li><a href="teacher-announcements.html" class="menu-btn"><span class="icon">📣</span> Announcements</a></li>
-                <li><a href="teacher-reports.html" class="menu-btn"><span class="icon">📄</span> Reports</a></li>
-                <li><a href="teacher-settings.html" class="menu-btn"><span class="icon">⚙️</span> Settings</a></li>
+                <li><a href="admin-overview.html" class="menu-btn"><span class="icon">📊</span> Overview</a></li>
+                <li><a href="admin-users.html" class="menu-btn"><span class="icon">👥</span> User Directory</a></li>
+                <li><a href="admin-announcements.html" class="menu-btn"><span class="icon">📣</span> Announcements</a></li>
+                <li><a href="admin-quizzes.html" class="menu-btn"><span class="icon">🧠</span> Manage Quizzes</a></li>
+                <li><a href="admin-assignments.html" class="menu-btn"><span class="icon">📝</span> Manage Assignments</a></li>
+                <li><a href="admin-reports.html" class="menu-btn"><span class="icon">📄</span> System Reports</a></li>
+                <li><a href="admin-settings.html" class="menu-btn"><span class="icon">⚙️</span> Configurations</a></li>
             </ul>
 
             <div style="margin-top: 24px;">
-                <button onclick="logout()" class="btn" style="min-height: 38px; font-size: 0.85rem; padding: 6px 12px; width: 100%; background: linear-gradient(135deg, var(--red), #e76f51); box-shadow: 0 8px 16px rgba(231,111,81,0.25);">Disconnect ⚡</button>
+                <button onclick="window.ConductoVerseAdmin.logout()" class="btn danger" style="width: 100%;">Disconnect Admin ⚡</button>
             </div>
         </article>
     </aside>
@@ -266,15 +261,15 @@
     <!-- Main Content Panel -->
     <section class="dashboard-main">
         <header class="welcome-hero">
-            <h1 id="welcomeTitle">Welcome, Instructor!</h1>
-            <p id="welcomeDescription">Review active concept quiz metrics, difficulty levels, and clear counts across student cycles.</p>
+            <h1 id="welcomeTitle">System Command Center</h1>
+            <p>Modify basic theory, safety, and advanced quiz question database pools. Updates are synced globally in real-time.</p>
         </header>
 
         <section id="tab-quizzes" class="tab-content active">
             <article class="dashboard-card">
-                <h2>🧠 Concept Quiz Assessment Manager</h2>
-                <p style="margin-bottom:20px; font-size:0.92rem; color:var(--muted); font-weight: 600;">
-                    Monitor quiz completion metrics across all chapters. Quizzes are updated immediately on live student feeds.
+                <h2>🧠 Concept Quiz Pool System</h2>
+                <p style="margin-bottom:20px; font-size:0.92rem; color:var(--admin-muted); font-weight: 600;">
+                    Add, edit, or delete question cards. Changes apply instantly to student test pathways.
                 </p>
 
                 <div class="quick-stats-row" style="margin-bottom:30px;">
@@ -296,12 +291,12 @@
                     <h2>📖 Active Quiz Question Pools</h2>
                     <div class="dashboard-btn-group" style="display: flex; gap: 10px;">
                         <button onclick="openQuestionModal(false)" class="btn" style="min-height:36px; font-size:0.85rem; padding: 6px 14px;">➕ Add Question</button>
-                        <button onclick="resetQuizzesToDefault()" class="btn secondary" style="min-height:36px; font-size:0.85rem; padding: 6px 14px; border-color: var(--red); color: var(--red);">Reset Defaults</button>
+                        <button onclick="resetQuizzesToDefault()" class="btn secondary" style="min-height:36px; font-size:0.85rem; padding: 6px 14px;">Reset Defaults</button>
                     </div>
                 </div>
 
                 <div class="table-container">
-                    <table class="dashboard-table">
+                    <table class="admin-table">
                         <thead>
                             <tr>
                                 <th>Level</th>
@@ -322,51 +317,56 @@
 </main>
 
 <!-- Add/Edit Question Modal -->
-<div class="modal-overlay" id="questionModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" style="display: none;">
-    <div class="modal-content" style="width: min(100%, 550px);">
-        <button class="modal-close" onclick="closeQuestionModal()" aria-label="Close modal">&times;</button>
-        <h2 id="modalTitle" style="font-family:'Outfit', sans-serif; font-weight:800; color:var(--blue-dark); margin-bottom: 20px; margin-top: 0;">Add Quiz Question</h2>
+<div class="admin-modal" id="questionModal">
+    <div class="admin-modal-card">
+        <header class="admin-modal-header">
+            <h2 id="modalTitle">Add Quiz Question</h2>
+            <button class="admin-modal-close" onclick="closeQuestionModal()">&times;</button>
+        </header>
         
         <form id="question-form" onsubmit="handleQuestionFormSubmit(event)" style="display: flex; flex-direction: column; gap: 16px;">
             <input type="hidden" id="edit-question-index">
             <input type="hidden" id="edit-question-level">
             
-            <div class="auth-form-group">
-                <label for="q-level" class="auth-label">Quiz Level</label>
-                <select id="q-level" class="auth-input" required>
+            <div class="admin-field-group">
+                <label for="q-level">Quiz Level</label>
+                <select id="q-level" class="admin-select" required>
                     <option value="1">Level 1: Basics</option>
                     <option value="2">Level 2: Safety</option>
                     <option value="3">Level 3: Advanced</option>
                 </select>
             </div>
             
-            <div class="auth-form-group">
-                <label for="q-text" class="auth-label">Question Statement</label>
-                <input type="text" id="q-text" class="auth-input" required placeholder="e.g. Which material conducts electricity?">
+            <div class="admin-field-group">
+                <label for="q-text">Question Statement</label>
+                <input type="text" id="q-text" class="admin-input" required placeholder="e.g. Which material conducts electricity?">
             </div>
 
-            <div class="auth-form-group">
-                <label for="q-visual" class="auth-label">Visual Tag / Emoji</label>
-                <input type="text" id="q-visual" class="auth-input" required placeholder="e.g. 🧵 Conducting path">
+            <div class="admin-field-group">
+                <label for="q-visual">Visual Tag / Emoji</label>
+                <input type="text" id="q-visual" class="admin-input" required placeholder="e.g. 🧵 Conducting path">
             </div>
 
             <div style="display: flex; flex-direction: column; gap: 8px;">
-                <label class="auth-label">Option Choices</label>
-                <input type="text" id="q-opt0" class="auth-input" required placeholder="Option 1">
-                <input type="text" id="q-opt1" class="auth-input" required placeholder="Option 2">
-                <input type="text" id="q-opt2" class="auth-input" required placeholder="Option 3">
+                <label style="font-size: 0.8rem; font-weight: 800; color: var(--blue-dark); text-transform: uppercase; margin-bottom: 0;">Option Choices</label>
+                <input type="text" id="q-opt0" class="admin-input" required placeholder="Option 1">
+                <input type="text" id="q-opt1" class="admin-input" required placeholder="Option 2">
+                <input type="text" id="q-opt2" class="admin-input" required placeholder="Option 3">
             </div>
 
-            <div class="auth-form-group">
-                <label for="q-answer" class="auth-label">Correct Option</label>
-                <select id="q-answer" class="auth-input" required>
+            <div class="admin-field-group">
+                <label for="q-answer">Correct Option</label>
+                <select id="q-answer" class="admin-select" required>
                     <option value="0">Option 1</option>
                     <option value="1">Option 2</option>
                     <option value="2">Option 3</option>
                 </select>
             </div>
 
-            <button type="submit" class="btn" style="min-height: 44px; background: linear-gradient(135deg, var(--blue), var(--cyan)); color: white; font-weight: 800; border: none; box-shadow: 0 8px 20px rgba(22, 104, 255, 0.25);">Save Question ⚡</button>
+            <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 12px;">
+                <button type="button" class="btn secondary" onclick="closeQuestionModal()">Cancel</button>
+                <button type="submit" class="btn">Save Question ⚡</button>
+            </div>
         </form>
     </div>
 </div>
@@ -377,7 +377,7 @@
 
 <script src="js/auth.js"></script>
 <script src="js/bg-simulation.js"></script>
-<script src="js/teacher-shared.js"></script>
+<script src="js/admin-shared.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     renderQuizzesPool();
@@ -408,10 +408,12 @@ const defaultQuestionsDb = {
 };
 
 function renderQuizzesPool() {
-    let l1 = 0, l2 = 0, l3 = 0;
+    // Admin user stats lookup
+    const users = window.ConductoVerseAdmin.getUsers();
+    const students = users.filter(u => u.role === "student");
     
-    // Students stats
-    studentsData.forEach(s => {
+    let l1 = 0, l2 = 0, l3 = 0;
+    students.forEach(s => {
         const quiz = JSON.parse(localStorage.getItem(`conductoverseQuizResult_${s.username}`) || "null");
         if (quiz) {
             if (quiz.level === 1) l1++;
@@ -432,7 +434,7 @@ function renderQuizzesPool() {
             html += `
                 <tr>
                     <td><span class="question-level-badge level-${lvl}">Level ${lvl}</span></td>
-                    <td><strong>${q.question}</strong><br><span style="font-size:0.75rem; color:var(--muted);">${q.visual || ''}</span></td>
+                    <td><strong>${q.question}</strong><br><span style="font-size:0.75rem; color:var(--admin-muted);">${q.visual || ''}</span></td>
                     <td><strong style="color:var(--green)">${q.answer}</strong></td>
                     <td>${q.options.length} options</td>
                     <td style="text-align: right;">
@@ -444,7 +446,7 @@ function renderQuizzesPool() {
         });
     });
 
-    tbody.innerHTML = html || `<tr><td colspan="5" style="text-align:center; padding:30px; font-weight:700; color:var(--muted)">No quiz questions set. Create a new question to start.</td></tr>`;
+    tbody.innerHTML = html || `<tr><td colspan="5" style="text-align:center; padding:30px; font-weight:700; color:var(--admin-muted)">No quiz questions set. Create a new question to start.</td></tr>`;
 }
 
 // --- Modal Actions ---
@@ -460,9 +462,8 @@ function openQuestionModal(isEdit = false, level = 1, index = 0) {
         document.getElementById("edit-question-index").value = index;
         document.getElementById("edit-question-level").value = level;
         document.getElementById("q-level").value = level;
-        document.getElementById("q-level").disabled = true; // disable changing level during edit
+        document.getElementById("q-level").disabled = true;
         
-        // Fetch current question
         const db = JSON.parse(localStorage.getItem("conductoverseQuestionsDatabase")) || defaultQuestionsDb;
         const q = db[level][index];
         
@@ -472,7 +473,6 @@ function openQuestionModal(isEdit = false, level = 1, index = 0) {
         document.getElementById("q-opt1").value = q.options[1];
         document.getElementById("q-opt2").value = q.options[2];
         
-        // Find correct option index
         const correctIdx = q.options.indexOf(q.answer);
         document.getElementById("q-answer").value = correctIdx !== -1 ? correctIdx : 0;
     } else {
@@ -483,11 +483,11 @@ function openQuestionModal(isEdit = false, level = 1, index = 0) {
         document.getElementById("q-level").disabled = false;
     }
     
-    modal.style.display = "flex";
+    modal.classList.add("open");
 }
 
 function closeQuestionModal() {
-    document.getElementById("questionModal").style.display = "none";
+    document.getElementById("questionModal").classList.remove("open");
 }
 
 function handleQuestionFormSubmit(e) {
@@ -512,9 +512,11 @@ function handleQuestionFormSubmit(e) {
         const oldLevel = parseInt(document.getElementById("edit-question-level").value, 10);
         const idx = parseInt(indexStr, 10);
         db[oldLevel][idx] = { question, visual, options, answer };
+        window.ConductoVerseAdmin.addSystemLog(`Modified Level ${oldLevel} Quiz Question: "${question}"`, "info");
     } else {
         if (!db[level]) db[level] = [];
         db[level].push({ question, visual, options, answer });
+        window.ConductoVerseAdmin.addSystemLog(`Added new Level ${level} Quiz Question: "${question}"`, "success");
     }
     
     localStorage.setItem("conductoverseQuestionsDatabase", JSON.stringify(db));
@@ -525,8 +527,10 @@ function handleQuestionFormSubmit(e) {
 function deleteQuestion(level, index) {
     if (confirm("Are you sure you want to delete this question?")) {
         const db = JSON.parse(localStorage.getItem("conductoverseQuestionsDatabase")) || defaultQuestionsDb;
+        const q = db[level][index];
         db[level].splice(index, 1);
         localStorage.setItem("conductoverseQuestionsDatabase", JSON.stringify(db));
+        window.ConductoVerseAdmin.addSystemLog(`Deleted Quiz Question: "${q.question}"`, "danger");
         renderQuizzesPool();
     }
 }
@@ -534,6 +538,7 @@ function deleteQuestion(level, index) {
 function resetQuizzesToDefault() {
     if (confirm("Are you sure you want to reset all quiz pools to default questions? Any custom questions will be lost.")) {
         localStorage.removeItem("conductoverseQuestionsDatabase");
+        window.ConductoVerseAdmin.addSystemLog(`Reset quiz pools database to default questions`, "warning");
         renderQuizzesPool();
     }
 }

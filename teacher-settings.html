@@ -101,13 +101,11 @@ function setupSettingsForm() {
         const displayName = document.getElementById("settings-username").value.trim();
         const newPassword = document.getElementById("settings-password").value.trim();
 
-        // Update session
-        currentTeacherSession.username = displayName;
-        localStorage.setItem("conductoverseCurrentUser", JSON.stringify(currentTeacherSession));
+        const oldUsername = currentTeacherSession.username;
 
         // Update in registered users list
         let users = JSON.parse(localStorage.getItem("conductoverseUsers") || "[]");
-        const idx = users.findIndex(u => u.username.toLowerCase() === currentTeacherSession.username.toLowerCase() || u.role === "teacher");
+        const idx = users.findIndex(u => u.username.toLowerCase() === oldUsername.toLowerCase() && u.role === "teacher");
         if (idx !== -1) {
             users[idx].username = displayName;
             if (newPassword) {
@@ -115,6 +113,10 @@ function setupSettingsForm() {
             }
             localStorage.setItem("conductoverseUsers", JSON.stringify(users));
         }
+
+        // Update session
+        currentTeacherSession.username = displayName;
+        localStorage.setItem("conductoverseCurrentUser", JSON.stringify(currentTeacherSession));
 
         document.getElementById("teacherUsername").textContent = displayName;
         document.getElementById("settings-password").value = "";

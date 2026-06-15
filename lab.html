@@ -22,6 +22,7 @@
         <li><a href="uses.html">Uses</a></li>
         <li><a class="active" href="lab.html">Virtual Lab</a></li>
         <li><a href="results.html">Results</a></li>
+        <li><a href="student-assignments.html">Assignments</a></li>
     </ul>
 </nav>
 
@@ -76,6 +77,10 @@
 
 <script>
 let score = 0;
+let misses = 0;
+let currentStreak = 0;
+let bestStreak = 0;
+let labStartTime = Date.now();
 const itemsContainer = document.querySelector(".items");
 const totalItems = document.querySelectorAll(".item").length;
 
@@ -139,6 +144,8 @@ document.querySelectorAll(".drop-zone").forEach((zone) => {
                 item.dataset.placed = "true";
                 
                 score++;
+                currentStreak++;
+                if (currentStreak > bestStreak) bestStreak = currentStreak;
                 updateScore();
 
                 // Calculate drop offsets for sparkle burst location
@@ -149,6 +156,8 @@ document.querySelectorAll(".drop-zone").forEach((zone) => {
             } else {
                 // Eject sequence
                 item.classList.add("wrong", "ejected");
+                misses++;
+                currentStreak = 0;
                 
                 const explanation = zone.dataset.kind === "conductor"
                     ? `Scan Fail! ${item.innerText} is an Insulator (blocks flow). Chamber ejected!`
@@ -224,6 +233,24 @@ function updateScore() {
         const nextBtn = document.getElementById("nextBtn");
         if (nextBtn) nextBtn.style.display = "flex";
         
+        // Save results to localStorage
+        const pct = Math.round((score / totalItems) * 100);
+        const secondsSpent = Math.max(1, Math.round((Date.now() - labStartTime) / 1000));
+        const spotResult = {
+            score: score,
+            total: totalItems,
+            percent: pct,
+            misses: misses,
+            bestStreak: bestStreak,
+            secondsSpent: secondsSpent,
+            completedAt: new Date().toISOString()
+        };
+        localStorage.setItem('conductoverseSpotResult', JSON.stringify(spotResult));
+        const userSession = JSON.parse(localStorage.getItem("conductoverseCurrentUser") || "null");
+        if (userSession && userSession.username) {
+            localStorage.setItem(`conductoverseSpotResult_${userSession.username}`, JSON.stringify(spotResult));
+        }
+
         // Final congratulations burst
         for (let i = 0; i < 3; i++) {
             setTimeout(() => {

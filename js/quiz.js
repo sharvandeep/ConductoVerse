@@ -137,8 +137,23 @@ function loadLevel(levelNum) {
     
     if (!container) return;
     
-    const questions = questionsDatabase[levelNum];
-    if (!questions) return;
+    const freshDb = JSON.parse(localStorage.getItem("conductoverseQuestionsDatabase")) || defaultQuestionsDatabase;
+    const questions = freshDb[levelNum] || [];
+    
+    const submitBtn = document.querySelector("#quizForm .quiz-actions button[onclick='calculateScore()']");
+    
+    if (questions.length === 0) {
+        container.innerHTML = `<div style="text-align: center; padding: 40px; font-weight: 700; color: var(--muted); border: 2px dashed rgba(0, 0, 0, 0.05); border-radius: 16px; margin: 20px 0;">No questions active in this level yet. Ask your instructor to assign quizzes!</div>`;
+        if (submitBtn) submitBtn.style.display = "none";
+        
+        const fill = document.getElementById("quizProgressFill");
+        const text = document.getElementById("quizProgressText");
+        if (fill) fill.style.width = "0%";
+        if (text) text.textContent = "0 of 0 Questions Answered";
+        return;
+    }
+    
+    if (submitBtn) submitBtn.style.display = "";
 
     let html = "";
     questions.forEach((q, index) => {
@@ -165,8 +180,9 @@ function loadLevel(levelNum) {
 }
 
 function updateProgress() {
-    const questions = questionsDatabase[currentLevel];
-    if (!questions) return;
+    const freshDb = JSON.parse(localStorage.getItem("conductoverseQuestionsDatabase")) || defaultQuestionsDatabase;
+    const questions = freshDb[currentLevel] || [];
+    if (questions.length === 0) return;
     
     const container = document.getElementById("hologramQuizContainer");
     if (!container) return;

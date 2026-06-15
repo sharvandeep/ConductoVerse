@@ -1,37 +1,53 @@
 /* ═══════════════════════════════════════════════════════
-   CONDUCTOVERSE — Admin Portal Custom Cyber Theme
-   Implements a high-tech dark neon dashboard design.
+   CONDUCTOVERSE — Admin Portal Theme (Light Glassmorphic)
+   Matches the theme of the student and teacher dashboards.
    ═══════════════════════════════════════════════════════ */
 
-/* Variables for Admin Theme */
+/* Variables for Admin Theme (Light Mode Glassmorphic) */
 :root {
-    --admin-bg: #070a13;
-    --admin-surface: rgba(13, 20, 38, 0.75);
-    --admin-surface-hover: rgba(20, 30, 56, 0.9);
-    --admin-border: rgba(0, 243, 255, 0.15);
-    --admin-border-hover: rgba(0, 243, 255, 0.45);
-    --admin-text: #e2e8f0;
-    --admin-muted: #8a9cb4;
-    --admin-cyan: #00f3ff;
+    --admin-bg: #f0f7ff;
+    --admin-surface: rgba(255, 255, 255, 0.45);
+    --admin-surface-hover: rgba(255, 255, 255, 0.75);
+    --admin-border: rgba(255, 255, 255, 0.35);
+    --admin-border-hover: rgba(22, 104, 255, 0.25);
+    --admin-text: #0d2238;
+    --admin-muted: #4e657f;
+    --admin-cyan: #1668ff; /* standard blue accent */
     --admin-purple: #9d4edd;
-    --admin-glow: 0 0 20px rgba(0, 243, 255, 0.25);
-    --admin-red-glow: 0 0 20px rgba(255, 51, 51, 0.35);
+    --admin-glow: inset 0 1px 1px rgba(255, 255, 255, 0.5), 0 8px 32px 0 rgba(31, 38, 135, 0.04);
+    --admin-red-glow: 0 8px 32px rgba(231, 111, 81, 0.12);
 }
 
 /* Global Overrides for Admin Portal */
 body.admin-body {
-    background: var(--admin-bg) !important;
+    background: linear-gradient(180deg, #f8fcff 0, #f0f7ff 44rem, #ebf5fe 100%) !important;
     color: var(--admin-text) !important;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     background-image: 
-        radial-gradient(rgba(0, 243, 255, 0.08) 1.5px, transparent 1.5px),
-        linear-gradient(rgba(0, 243, 255, 0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 243, 255, 0.015) 1px, transparent 1px) !important;
-    background-size: 40px 40px !important;
+        radial-gradient(rgba(22, 104, 255, 0.18) 1.5px, transparent 1.5px),
+        linear-gradient(rgba(22, 104, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(22, 104, 255, 0.035) 1px, transparent 1px) !important;
+    background-size: 38px 38px !important;
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><text y='24' font-size='24'>⚡</text></svg>"), auto !important;
+}
+
+body.admin-body::before {
+    display: none !important;
+}
+
+body.admin-body a,
+body.admin-body button,
+body.admin-body .btn,
+body.admin-body input,
+body.admin-body select,
+body.admin-body textarea,
+body.admin-body .sidebar-menu a,
+body.admin-body .admin-modal-close {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'><style>text { filter: drop-shadow(0 0 4px cyan); transform: rotate(20deg); transform-origin: center; }</style><text y='28' x='4' font-size='24'>⚡</text></svg>"), pointer !important;
 }
 
 body.admin-body::after {
-    background: radial-gradient(circle, rgba(0, 243, 255, 0.08) 0%, rgba(157, 78, 221, 0.05) 50%, transparent 70%) !important;
+    background: radial-gradient(circle, rgba(22, 104, 255, 0.1) 0%, rgba(22, 104, 255, 0.05) 50%, transparent 70%) !important;
 }
 
 /* Scrollbars */
@@ -40,12 +56,12 @@ body.admin-body ::-webkit-scrollbar {
     height: 8px;
 }
 body.admin-body ::-webkit-scrollbar-track {
-    background: #060910;
+    background: #f0f7ff;
 }
 body.admin-body ::-webkit-scrollbar-thumb {
-    background: #141c2f;
+    background: #cddff2;
     border-radius: 99px;
-    border: 1px solid var(--admin-cyan);
+    border: 1px solid rgba(22, 104, 255, 0.1);
 }
 body.admin-body ::-webkit-scrollbar-thumb:hover {
     background: var(--admin-cyan);
@@ -53,15 +69,16 @@ body.admin-body ::-webkit-scrollbar-thumb:hover {
 
 /* Navbar overrides */
 body.admin-body .navbar {
-    background: rgba(8, 12, 24, 0.85) !important;
-    border-bottom: 1px solid var(--admin-border) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 -1px 0 rgba(0, 243, 255, 0.05) !important;
-    backdrop-filter: blur(20px) !important;
+    background: rgba(255, 255, 255, 0.55) !important;
+    border-bottom: 1px solid rgba(215, 232, 246, 0.75) !important;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.04), inset 0 -1px 0 rgba(255, 255, 255, 0.3) !important;
+    backdrop-filter: blur(28px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
 }
 
 body.admin-body .navbar a.logo {
-    color: var(--admin-cyan) !important;
-    text-shadow: 0 0 10px rgba(0, 243, 255, 0.3) !important;
+    color: var(--blue-dark) !important;
+    text-shadow: none !important;
 }
 
 body.admin-body .nav-links a {
@@ -71,7 +88,12 @@ body.admin-body .nav-links a {
 body.admin-body .nav-links a:hover,
 body.admin-body .nav-links a.active {
     color: var(--admin-cyan) !important;
-    text-shadow: 0 0 8px rgba(0, 243, 255, 0.5) !important;
+    text-shadow: none !important;
+}
+
+body.admin-body .logout-btn-nav {
+    border: 1px dashed rgba(22, 104, 255, 0.4) !important;
+    color: var(--admin-cyan) !important;
 }
 
 /* Dashboard main grid layout */
@@ -90,16 +112,18 @@ body.admin-body .profile-card {
     border: 1px solid var(--admin-border) !important;
     box-shadow: var(--admin-glow) !important;
     color: var(--admin-text) !important;
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
 }
 
 body.admin-body .profile-card::before {
-    border: 2px dashed rgba(0, 243, 255, 0.08) !important;
+    border: 2px dashed rgba(22, 104, 255, 0.08) !important;
 }
 
 body.admin-body .profile-avatar.admin {
     background: linear-gradient(135deg, var(--admin-cyan), var(--admin-purple)) !important;
     color: white !important;
-    box-shadow: 0 0 15px rgba(0, 243, 255, 0.4) !important;
+    box-shadow: 0 8px 16px rgba(22, 104, 255, 0.15) !important;
 }
 
 body.admin-body .profile-card h2 {
@@ -107,10 +131,10 @@ body.admin-body .profile-card h2 {
 }
 
 body.admin-body .profile-role-badge.admin {
-    background: rgba(0, 243, 255, 0.1) !important;
+    background: rgba(22, 104, 255, 0.08) !important;
     color: var(--admin-cyan) !important;
-    border: 1px solid rgba(0, 243, 255, 0.3) !important;
-    box-shadow: 0 0 8px rgba(0, 243, 255, 0.15) !important;
+    border: 1px solid rgba(22, 104, 255, 0.2) !important;
+    box-shadow: none !important;
 }
 
 /* Sidebar Menu Links */
@@ -121,33 +145,34 @@ body.admin-body .sidebar-menu a {
 
 body.admin-body .sidebar-menu a:hover {
     color: var(--admin-cyan) !important;
-    background: rgba(0, 243, 255, 0.05) !important;
+    background: rgba(22, 104, 255, 0.04) !important;
     border-left: 3px solid var(--admin-cyan) !important;
-    text-shadow: 0 0 8px rgba(0, 243, 255, 0.3) !important;
+    text-shadow: none !important;
 }
 
 body.admin-body .sidebar-menu a.active {
     color: var(--admin-cyan) !important;
-    background: rgba(0, 243, 255, 0.08) !important;
+    background: rgba(22, 104, 255, 0.06) !important;
     border-left: 3px solid var(--admin-cyan) !important;
     font-weight: 700 !important;
-    text-shadow: 0 0 10px rgba(0, 243, 255, 0.4) !important;
+    text-shadow: none !important;
 }
 
 /* Welcome Hero Card */
 body.admin-body .welcome-hero {
-    background: linear-gradient(135deg, #0b132b, #1c2541) !important;
-    border: 1px solid var(--admin-border) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 0 20px rgba(0, 243, 255, 0.05) !important;
+    background: linear-gradient(135deg, #1668ff, #00b4d8) !important;
+    border: none !important;
+    box-shadow: var(--shadow) !important;
+    color: white !important;
 }
 
 body.admin-body .welcome-hero h1 {
-    color: var(--admin-cyan) !important;
-    text-shadow: 0 0 12px rgba(0, 243, 255, 0.4) !important;
+    color: white !important;
+    text-shadow: none !important;
 }
 
 body.admin-body .welcome-hero p {
-    color: var(--admin-text) !important;
+    color: white !important;
     opacity: 0.9;
 }
 
@@ -160,13 +185,15 @@ body.admin-body .quick-stat-box {
     background: var(--admin-surface) !important;
     border: 1px solid var(--admin-border) !important;
     color: var(--admin-text) !important;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15) !important;
+    box-shadow: var(--soft-shadow) !important;
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
     transition: var(--transition) !important;
 }
 
 body.admin-body .quick-stat-box:hover {
     border-color: var(--admin-border-hover) !important;
-    box-shadow: var(--admin-glow) !important;
+    box-shadow: var(--shadow) !important;
     transform: translateY(-3px);
 }
 
@@ -178,26 +205,28 @@ body.admin-body .quick-stat-box span {
 }
 
 body.admin-body .quick-stat-box strong {
-    color: var(--admin-text) !important;
+    color: var(--blue-dark) !important;
     font-family: 'Outfit', sans-serif;
     font-size: 1.8rem !important;
-    text-shadow: 0 0 10px rgba(255,255,255,0.1);
+    text-shadow: none !important;
 }
 
 /* Dashboard Content Cards */
 body.admin-body .dashboard-card {
     background: var(--admin-surface) !important;
     border: 1px solid var(--admin-border) !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: var(--shadow) !important;
     color: var(--admin-text) !important;
     margin-bottom: 30px !important;
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
 }
 
 body.admin-body .dashboard-card h2 {
-    color: var(--admin-cyan) !important;
+    color: var(--blue-dark) !important;
     font-family: 'Outfit', sans-serif;
     font-weight: 800;
-    border-bottom: 1px dashed rgba(0, 243, 255, 0.1) !important;
+    border-bottom: 1px dashed rgba(22, 104, 255, 0.1) !important;
     padding-bottom: 12px;
     margin-bottom: 18px;
 }
@@ -211,37 +240,38 @@ body.admin-body .btn {
 
 body.admin-body .btn:not(.secondary) {
     background: linear-gradient(135deg, var(--admin-cyan), #00b4d8) !important;
-    color: #070a13 !important;
+    color: white !important;
     border: none !important;
-    box-shadow: 0 4px 15px rgba(0, 243, 255, 0.25) !important;
+    box-shadow: 0 6px 14px rgba(22, 104, 255, 0.2) !important;
 }
 
 body.admin-body .btn:not(.secondary):hover {
-    box-shadow: var(--admin-glow) !important;
+    box-shadow: 0 8px 20px rgba(22, 104, 255, 0.35) !important;
     transform: translateY(-2px);
 }
 
 body.admin-body .btn.secondary {
-    background: rgba(13, 20, 38, 0.6) !important;
+    background: rgba(255, 255, 255, 0.6) !important;
     color: var(--admin-text) !important;
-    border: 1px solid var(--admin-border) !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: var(--soft-shadow) !important;
 }
 
 body.admin-body .btn.secondary:hover {
     border-color: var(--admin-cyan) !important;
     color: var(--admin-cyan) !important;
-    box-shadow: 0 0 12px rgba(0, 243, 255, 0.1) !important;
+    box-shadow: 0 4px 12px rgba(22, 104, 255, 0.1) !important;
 }
 
 body.admin-body .btn.danger {
-    background: linear-gradient(135deg, #e76f51, #d9383a) !important;
+    background: linear-gradient(135deg, var(--red), #d9383a) !important;
     color: white !important;
-    box-shadow: 0 4px 15px rgba(231, 111, 81, 0.25) !important;
+    box-shadow: 0 6px 14px rgba(231, 111, 81, 0.2) !important;
     border: none !important;
 }
 
 body.admin-body .btn.danger:hover {
-    box-shadow: var(--admin-red-glow) !important;
+    box-shadow: 0 8px 20px rgba(231, 111, 81, 0.35) !important;
     transform: translateY(-2px);
 }
 
@@ -253,25 +283,25 @@ body.admin-body table.admin-table {
 }
 
 body.admin-body table.admin-table th {
-    background: rgba(0, 243, 255, 0.05);
-    color: var(--admin-cyan);
+    background: rgba(22, 104, 255, 0.05);
+    color: var(--blue-dark);
     text-align: left;
     padding: 14px 16px;
     font-weight: 800;
     font-size: 0.85rem;
     text-transform: uppercase;
-    border-bottom: 2px solid var(--admin-border);
+    border-bottom: 2px solid var(--border);
 }
 
 body.admin-body table.admin-table td {
     padding: 14px 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(22, 104, 255, 0.05);
     font-size: 0.9rem;
     color: var(--admin-text);
 }
 
 body.admin-body table.admin-table tr:hover td {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(22, 104, 255, 0.015);
 }
 
 body.admin-body .admin-badge {
@@ -284,21 +314,21 @@ body.admin-body .admin-badge {
 }
 
 body.admin-body .admin-badge.student {
-    background: rgba(22, 104, 255, 0.15);
-    color: #4da3ff;
-    border: 1px solid rgba(22, 104, 255, 0.3);
+    background: rgba(22, 104, 255, 0.08);
+    color: var(--blue-dark);
+    border: 1px solid rgba(22, 104, 255, 0.2);
 }
 
 body.admin-body .admin-badge.teacher {
-    background: rgba(42, 157, 143, 0.15);
-    color: #4ade80;
-    border: 1px solid rgba(42, 157, 143, 0.3);
+    background: rgba(42, 157, 143, 0.08);
+    color: var(--green);
+    border: 1px solid rgba(42, 157, 143, 0.2);
 }
 
 body.admin-body .admin-badge.admin {
-    background: rgba(157, 78, 221, 0.15);
-    color: #c084fc;
-    border: 1px solid rgba(157, 78, 221, 0.3);
+    background: rgba(157, 78, 221, 0.08);
+    color: var(--admin-purple);
+    border: 1px solid rgba(157, 78, 221, 0.2);
 }
 
 /* Form fields for admin */
@@ -312,15 +342,15 @@ body.admin-body .admin-field-group {
 body.admin-body .admin-field-group label {
     font-size: 0.8rem;
     font-weight: 800;
-    color: var(--admin-cyan);
+    color: var(--blue-dark);
     text-transform: uppercase;
 }
 
 body.admin-body .admin-input,
 body.admin-body .admin-textarea,
 body.admin-body .admin-select {
-    background: rgba(8, 12, 24, 0.7) !important;
-    border: 1px solid var(--admin-border) !important;
+    background: rgba(255, 255, 255, 0.75) !important;
+    border: 1px solid rgba(22, 104, 255, 0.15) !important;
     color: var(--admin-text) !important;
     border-radius: 12px;
     min-height: 44px;
@@ -335,7 +365,7 @@ body.admin-body .admin-textarea:focus,
 body.admin-body .admin-select:focus {
     outline: none;
     border-color: var(--admin-cyan) !important;
-    box-shadow: 0 0 10px rgba(0, 243, 255, 0.2) !important;
+    box-shadow: 0 0 10px rgba(22, 104, 255, 0.15) !important;
 }
 
 /* Live feeds & log listings */
@@ -351,8 +381,8 @@ body.admin-body .system-log-list {
 body.admin-body .system-log-item {
     padding: 12px 16px;
     border-radius: 12px;
-    background: rgba(8, 12, 24, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(22, 104, 255, 0.05);
     font-size: 0.84rem;
     display: flex;
     justify-content: space-between;
@@ -361,8 +391,9 @@ body.admin-body .system-log-item {
 }
 
 body.admin-body .system-log-item .log-text {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     font-weight: 600;
+    color: var(--admin-text);
 }
 
 body.admin-body .system-log-item .log-time {
@@ -371,10 +402,10 @@ body.admin-body .system-log-item .log-time {
     white-space: nowrap;
 }
 
-body.admin-body .system-log-item.success { border-left: 3px solid #2a9d8f; }
-body.admin-body .system-log-item.warning { border-left: 3px solid #fb8500; }
-body.admin-body .system-log-item.danger { border-left: 3px solid #e76f51; }
-body.admin-body .system-log-item.info { border-left: 3px solid #00b4d8; }
+body.admin-body .system-log-item.success { border-left: 3px solid var(--green); }
+body.admin-body .system-log-item.warning { border-left: 3px solid var(--orange); }
+body.admin-body .system-log-item.danger { border-left: 3px solid var(--red); }
+body.admin-body .system-log-item.info { border-left: 3px solid var(--blue); }
 
 /* Status Pulsing Indicators */
 .status-pulsar {
@@ -383,9 +414,9 @@ body.admin-body .system-log-item.info { border-left: 3px solid #00b4d8; }
     gap: 8px;
     font-size: 0.8rem;
     font-weight: 700;
-    color: #4ade80;
-    background: rgba(74, 222, 128, 0.08);
-    border: 1px solid rgba(74, 222, 128, 0.2);
+    color: var(--green);
+    background: rgba(42, 157, 143, 0.08);
+    border: 1px solid rgba(42, 157, 143, 0.2);
     padding: 6px 12px;
     border-radius: 99px;
 }
@@ -394,8 +425,7 @@ body.admin-body .system-log-item.info { border-left: 3px solid #00b4d8; }
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #4ade80;
-    box-shadow: 0 0 10px #4ade80;
+    background: var(--green);
     position: relative;
 }
 
@@ -404,7 +434,7 @@ body.admin-body .system-log-item.info { border-left: 3px solid #00b4d8; }
     position: absolute;
     inset: -4px;
     border-radius: 50%;
-    border: 2px solid #4ade80;
+    border: 2px solid var(--green);
     opacity: 0;
     animation: pulsar-ring 1.8s infinite cubic-bezier(0.13, 0.9, 0.22, 1);
 }
@@ -418,7 +448,7 @@ body.admin-body .system-log-item.info { border-left: 3px solid #00b4d8; }
 body.admin-body .admin-modal {
     position: fixed;
     inset: 0;
-    background: rgba(3, 5, 10, 0.7);
+    background: rgba(13, 27, 42, 0.15);
     backdrop-filter: blur(12px);
     display: none;
     place-items: center;
@@ -430,11 +460,11 @@ body.admin-body .admin-modal.open {
 }
 
 body.admin-body .admin-modal-card {
-    background: #0d1426;
-    border: 1px solid var(--admin-cyan);
+    background: white;
+    border: 1px solid var(--border);
     border-radius: 20px;
     width: min(100%, 550px);
-    box-shadow: var(--admin-glow);
+    box-shadow: var(--shadow);
     padding: 30px;
     animation: modalZoom 0.4s var(--bezier) both;
 }
@@ -448,13 +478,13 @@ body.admin-body .admin-modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px dashed rgba(0, 243, 255, 0.1);
+    border-bottom: 1px dashed rgba(22, 104, 255, 0.1);
     padding-bottom: 12px;
     margin-bottom: 20px;
 }
 
 body.admin-body .admin-modal-header h2 {
-    color: var(--admin-cyan);
+    color: var(--blue-dark);
     font-size: 1.35rem;
     font-family: 'Outfit', sans-serif;
     margin: 0;

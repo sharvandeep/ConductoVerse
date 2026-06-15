@@ -34,7 +34,7 @@
     position: absolute;
     cursor: pointer;
     inset: 0;
-    background-color: #141c2f;
+    background-color: rgba(22, 104, 255, 0.1);
     border: 1px solid var(--admin-border);
     transition: .3s;
     border-radius: 34px;
@@ -85,6 +85,8 @@ input:checked + .switch-slider:before {
                 <li><a href="admin-overview.html" class="menu-btn"><span class="icon">📊</span> Overview</a></li>
                 <li><a href="admin-users.html" class="menu-btn"><span class="icon">👥</span> User Directory</a></li>
                 <li><a href="admin-announcements.html" class="menu-btn"><span class="icon">📣</span> Announcements</a></li>
+                <li><a href="admin-quizzes.html" class="menu-btn"><span class="icon">🧠</span> Manage Quizzes</a></li>
+                <li><a href="admin-assignments.html" class="menu-btn"><span class="icon">📝</span> Manage Assignments</a></li>
                 <li><a href="admin-reports.html" class="menu-btn"><span class="icon">📄</span> System Reports</a></li>
                 <li><a href="admin-settings.html" class="menu-btn"><span class="icon">⚙️</span> Configurations</a></li>
             </ul>
@@ -130,7 +132,7 @@ input:checked + .switch-slider:before {
                 <!-- Update Credentials -->
                 <article class="dashboard-card" style="margin-bottom: 0;">
                     <h2>🔒 Admin Credentials</h2>
-                    <form id="adminCredentialsForm" onsubmit="handleCredentialsUpdate(e)">
+                    <form id="adminCredentialsForm" onsubmit="event.preventDefault(); updateAdminCredentials();">
                         <div class="admin-field-group">
                             <label for="adminUserField">Admin Username</label>
                             <input type="text" id="adminUserField" class="admin-input" required>
@@ -139,7 +141,7 @@ input:checked + .switch-slider:before {
                             <label for="adminPassField">Admin Password</label>
                             <input type="password" id="adminPassField" class="admin-input" required placeholder="••••••••">
                         </div>
-                        <button type="button" onclick="updateAdminCredentials()" class="btn" style="width: 100%; min-height: 40px; margin-top: 8px;">Update Login Credentials</button>
+                        <button type="submit" class="btn" style="width: 100%; min-height: 40px; margin-top: 8px;">Update Login Credentials</button>
                     </form>
                 </article>
             </div>

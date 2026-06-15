@@ -125,6 +125,7 @@ function setupAnnouncementForm() {
             id: "ann_" + Date.now(),
             title,
             content,
+            postedBy: currentTeacherSession.username,
             postedAt: new Date().toISOString()
         };
 
